@@ -11,12 +11,13 @@ class Openssl < Formula
 
   def install
     # I don't understand why this works and other things don't, but I'm done debugging this. it's ugly, but it works.
-    `cd #{Dir.pwd} ; ./Configure darwin64-x86_64-cc --prefix=#{prefix} --openssldir=#{etc}/openssl zlib-dynamic shared`
+    `cd #{Dir.pwd} ; ./Configure darwin64-x86_64-cc --prefix=#{prefix} --openssldir=#{prefix}/etc/openssl zlib-dynamic shared`
 
     ENV.deparallelize # Parallel compilation fails
     system "make"
     system "make test"
     system "make install MANDIR=#{man} MANSUFFIX=ssl"
+    system "curl http://curl.haxx.se/ca/cacert.pem > /usr/local/Cellar/openssl/1.0.1-beta1/etc/openssl/cert.pem"
   end
 
 end
