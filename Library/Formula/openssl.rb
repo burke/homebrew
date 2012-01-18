@@ -1,10 +1,10 @@
 require 'formula'
 
 class Openssl < Formula
-  url 'http://www.openssl.org/source/openssl-0.9.8s.tar.gz'
-  version '0.9.8s'
+  url 'http://www.openssl.org/source/openssl-1.0.1-beta1.tar.gz'
+  version '1.0.1-beta1'
   homepage 'http://www.openssl.org'
-  sha1 'a7410b0991f37e125bf835dfd1315822fca64d56'
+  sha1 'a97fd63356a787e9ddc9f157ce4b964459a41f40'
 
   keg_only :provided_by_osx,
     "The OpenSSL provided by Leopard (0.9.7) is too old for some software."
