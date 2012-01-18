@@ -7,12 +7,11 @@ class Openssl < Formula
   sha1 'a97fd63356a787e9ddc9f157ce4b964459a41f40'
 
   keg_only :provided_by_osx,
-    "The OpenSSL provided by Leopard (0.9.7) is too old for some software."
+    "The OpenSSL provided by Lion (0.9.8) is too old for some software."
 
   def install
-    system "./config", "--prefix=#{prefix}",
-                       "--openssldir=#{etc}/openssl",
-                       "zlib-dynamic", "shared"
+    # I don't understand why this works and other things don't, but I'm done debugging this. it's ugly, but it works.
+    `cd #{Dir.pwd} ; ./Configure darwin64-x86_64-cc --prefix=#{prefix} --openssldir=#{etc}/openssl zlib-dynamic shared`
 
     ENV.deparallelize # Parallel compilation fails
     system "make"
@@ -20,8 +19,4 @@ class Openssl < Formula
     system "make install MANDIR=#{man} MANSUFFIX=ssl"
   end
 
-  def caveats; <<-EOS.undent
-    Note that the libraries built tend to be 32-bit only, even on Snow Leopard.
-    EOS
-  end
 end
